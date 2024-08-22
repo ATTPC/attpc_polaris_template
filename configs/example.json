@@ -1,0 +1,14 @@
+{
+    "pbs_script_path": "/some/path/somewhere.pbs",
+    "spyral_start_script": "/some/path/somewhere.py",
+    "spyral_workspace_path": "/some/path/somewhere/",
+    "spyral_trace_path": "/some/path/somewhere/",
+    "container_path": "/some/path/somewhere.img",
+    "log_path": "/some/path/somewhere/",
+    "job_name": "spyral_job",
+    "queue": "debug",
+    "nodes": 1,
+    "cpus_per_node": 32,
+    "memory_per_node": 20,
+    "walltime": 60
+}

@@ -1,0 +1,8 @@
+.vscode
+.DS_Store
+.vs
+__pycache__
+*.pbs
+*.png
+*.jpg
+*.svg
