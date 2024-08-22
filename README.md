@@ -44,7 +44,7 @@ Normally these would point to the location on your disk for both the Spyral work
 particle_id_filename=Path("/app/pids/example.json"),
 ```
 
-This is very similar to traces and workspaces. To run your code within the container, you need to bind the codespace to the container as well! The `spyral_job` script binds the current working directory (wherever you ran the script from) to the location `/app` in the container. In the template this means that to load the example PID, you need to reference the location `/app/pids/example.json` from your script.
+This is very similar to traces and workspaces. To run your code within the container, you need to bind the codespace to the container as well! The `spyral_job` script binds the current working directory (wherever you ran the script from) to the location `/app` in the container. In the template this means that to load the example PID, you need to reference the location `/app/pids/example.json` from your script. Note that because `spyral_job.py` binds the current working directory as the codespace, you **MUST** run it from the same location as your Spyral code.
 
 Hopefully this all is clear, but as a simple guide remember that to your code this is how the locations are mapped inside the container:
 
