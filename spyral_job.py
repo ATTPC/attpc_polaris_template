@@ -131,7 +131,7 @@ def create_job_script(config: Config):
                 module use /soft/spack/gcc/0.6.1/install/modulefiles/Core
                 module load apptainer
 
-                apptainer -s exec --bind {config.spyral_workspace_path}:/workspace,{config.spyral_trace_path}:/traces {config.container_path} python {config.spyral_start_script}
+                apptainer -s exec --bind {config.spyral_workspace_path}:/workspace,{config.spyral_trace_path}:/traces,{Path.cwd()}:/app {config.container_path} python /app/{config.spyral_start_script}
                 """
             )
         )

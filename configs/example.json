@@ -1,9 +1,9 @@
 {
-    "pbs_script_path": "/some/path/somewhere.pbs",
-    "spyral_start_script": "/some/path/somewhere.py",
+    "pbs_script_path": "./pbs/my_script.pbs",
+    "spyral_start_script": "example_spyral_script.py",
     "spyral_workspace_path": "/some/path/somewhere/",
     "spyral_trace_path": "/some/path/somewhere/",
-    "container_path": "/some/path/somewhere.img",
+    "container_path": "/some/path/attpc-spyral.img",
     "log_path": "/some/path/somewhere/",
     "job_name": "spyral_job",
     "queue": "debug",

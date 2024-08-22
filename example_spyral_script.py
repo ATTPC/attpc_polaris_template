@@ -25,7 +25,7 @@ from spyral import (
 from pathlib import Path
 import multiprocessing
 
-workspace_path = Path("/workspace/some/experiment")
+workspace_path = Path("/workspace/")
 trace_path = Path("/traces/")
 
 run_min = 94
@@ -66,7 +66,7 @@ det_params = DetectorParameters(
     micromegas_time_bucket=10.0,
     window_time_bucket=560.0,
     get_frequency=6.25,
-    garfield_file_path=Path("./corrections/garfield.txt"),
+    garfield_file_path=Path("/app/corrections/example.txt"),
     do_garfield_correction=False,
 )
 
@@ -86,8 +86,8 @@ estimate_params = EstimateParameters(
 )
 
 solver_params = SolverParameters(
-    gas_data_path=Path("./gases/data.json"),
-    particle_id_filename=Path("./pids/id.json"),
+    gas_data_path=Path("/app/gases/example.json"),
+    particle_id_filename=Path("/app/pids/id.json"),
     ic_min_val=900.0,
     ic_max_val=1350.0,
     n_time_steps=1000,
