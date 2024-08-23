@@ -55,10 +55,25 @@ Hopefully this all is clear, but as a simple guide remember that to your code th
 
 ## Job Configuration Parameters
 
+Here we'll go over the available configuration parameters for jobs with Spyral
+
+- `pbs_script_path`: The path to where you want to store the created PBS job script
+- `spyral_start_script`: The script to be run by Spyral. It should exist at the same location as `spyral_job.py`.
+- `spyral_workspace_path`: The path to the workspace to be used in this Spyral job.
+- `spyral_trace_path`: The path to the traces to be used in this Spyral job.
+- `container_path`: The path to the container with Spyral installed
+- `log_path`: The location at which you would like PBS logs to be written
+- `job_name`: The name of this job in PBS
+- `queue`: The queue you would like to submit the job to. See the Polaris [docs](https://docs.alcf.anl.gov/polaris/running-jobs/)
+- `nodes`: The number of vnodes to use. See Polaris [docs](https://docs.alcf.anl.gov/running-jobs/job-and-queue-scheduling/)
+- `cpus_per_node`: Equivalent to ncpus in PBS. See Polaris [docs](https://docs.alcf.anl.gov/running-jobs/job-and-queue-scheduling/)
+- `memory_per_node`: Equivalent to mem in PBS. Units of gigabytes. See Polaris [docs](https://docs.alcf.anl.gov/running-jobs/job-and-queue-scheduling/)
+- `walltime`: How long the job is allowed to run in units of minutes. See Polaris [docs](https://docs.alcf.anl.gov/running-jobs/job-and-queue-scheduling/)
+
 ```json
 {
     "pbs_script_path": "/some/path/somewhere.pbs",
-    "spyral_start_script": "/some/path/somewhere.py",
+    "spyral_start_script": "some_script.py",
     "spyral_workspace_path": "/some/path/somewhere/",
     "spyral_trace_path": "/some/path/somewhere/",
     "container_path": "/some/path/somewhere.img",
