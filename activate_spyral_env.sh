@@ -9,6 +9,13 @@ then
     return
 fi
 MODULE_DIR=$DRAGON_DIR/modulefiles
+if [ ! -d ".venv" ]
+then
+    echo "The virtual environment .venv does not exist!"
+    echo "Please use create_spyral_env.sh to make the venv"
+    echo "before trying to activate it."
+    return
+fi
 
 echo "Activating Spyral virtual environment .venv and Dragon"
 
