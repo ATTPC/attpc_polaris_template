@@ -115,7 +115,9 @@ def create_job_script(config: Config):
                 #PBS -o {config.log_path}
                 #PBS -l walltime={config.walltime_str()}
 
-                . activate_spyral_env.sh
+                cd {Path.cwd().absolute().resolve()}
+
+                source bin/activate_spyral_env.sh
                 dragon {config.spyral_start_script}
                 """
             )
