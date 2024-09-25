@@ -17,14 +17,14 @@ echo "Preparing a Spyral environment with Dragon from ${DRAGON_DIR}"
 echo "Loading conda to get Python..."
 module use /soft/modulefiles
 module load conda
-if [ ! command -v conda 2>&1 >/dev/null ]
+if ! command -v conda 2>&1 >/dev/null
 then
     echo "Failed to load conda! conda was not found in the path."
     return
 fi
 echo "Activating conda base environment..."
 conda activate base
-if [ ! command -v python 2>&1 >/dev/null ]
+if ! command -v python 2>&1 >/dev/null 
 then
     echo "Failed to activate the conda base environment!"
     echo "python was not found in the path."
@@ -41,7 +41,7 @@ pip install attpc_spyral
 echo "Loading Dragon modules..."
 module use $MODULE_DIR
 module load dragon
-if [ ! command -v dragon 2>&1 >/dev/null ]
+if ! command -v dragon 2>&1 >/dev/null
 then
     echo "Failed to load dragon!"
     echo "dragon was not found in the path."
