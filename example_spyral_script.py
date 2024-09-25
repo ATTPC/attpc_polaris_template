@@ -120,7 +120,7 @@ pipe = Pipeline(
 
 
 def main():
-    start_pipeline(pipe, run_min, run_max, n_processes)
+    start_pipeline(pipe, run_min, run_max, n_processes, disable_display=True)
 
 
 if __name__ == "__main__":
