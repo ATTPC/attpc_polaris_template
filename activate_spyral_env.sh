@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DRAGON_DIR=$0
+DRAGON_DIR=$1
 MODULE_DIR=$DRAGON_DIR/modulefiles
 
 echo "Activating Spyral virtual environment .venv and Dragon"

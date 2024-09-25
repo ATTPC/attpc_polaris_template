@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DRAGON_DIR=$0
+DRAGON_DIR=$1
 DRAGON_WHEEL=$(ls $DRAGON_DIR/dragon*.whl)
 PYCAPNP_WHEEL=$(ls $DRAGON_DIR/pycapnp*.whl)
 MODULE_DIR=$DRAGON_DIR/modulefiles
