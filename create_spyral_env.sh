@@ -15,10 +15,21 @@ MODULE_DIR=$DRAGON_DIR/modulefiles
 echo "Preparing a Spyral environment with Dragon from ${DRAGON_DIR}"
 
 echo "Loading conda to get Python..."
-module use /soft/modulefiles &> /dev/null
+module use /soft/modulefiles
 module load conda
+if [ ! -x conda ]
+then
+    echo "Failed to load conda! conda was not found in the path."
+    return
+fi
 echo "Activating conda base environment..."
 conda activate base
+if [ ! -x python ]
+then
+    echo "Failed to activate the conda base environment!"
+    echo "python was not found in the path."
+    return
+fi
 echo "Creating a new virtual environment..."
 python -m venv .venv
 source .venv/bin/activate
@@ -30,5 +41,11 @@ pip install attpc_spyral
 echo "Loading Dragon modules..."
 module use $MODULE_DIR
 module load dragon
+if [ ! -x dragon ]
+then
+    echo "Failed to load dragon!"
+    echo "dragon was not found in the path."
+    return
+fi
 
 echo "A virtual envorinment .venv has been created and loaded with the appropriate Dragon configuration"
