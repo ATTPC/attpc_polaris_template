@@ -1,3 +1,4 @@
+import dragon
 import dotenv
 
 dotenv.load_dotenv()
@@ -19,7 +20,6 @@ from spyral import (
     SolverParameters,
     EstimateParameters,
     DEFAULT_MAP,
-    DEFAULT_LEGACY_MAP,
 )
 
 from pathlib import Path
@@ -55,7 +55,6 @@ frib_params = FribParameters(
     peak_threshold=100.0,
     ic_delay_time_bucket=1100,
     ic_multiplicity=1,
-    correct_ic_time=True,
 )
 
 det_params = DetectorParameters(
@@ -125,5 +124,5 @@ def main():
 
 
 if __name__ == "__main__":
-    multiprocessing.set_start_method("spawn")
+    multiprocessing.set_start_method("dragon")
     main()
