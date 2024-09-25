@@ -51,23 +51,15 @@ NODE_LIMITS = {
     "demand": (1, 56),
 }
 
-CPU_LIMIT = 32  # There are 32 physical cores per node
-MEMORY_LIMIT = 256  # technically 512 GiB but for now...
-
 
 @dataclass
 class Config:
     pbs_script_path: Path
     spyral_start_script: Path
-    spyral_workspace_path: Path
-    spyral_trace_path: Path
-    container_path: Path
     log_path: Path
     job_name: str
     queue: str
     nodes: int
-    cpus_per_node: int
-    memory_per_node: int
     walltime: int
 
     def walltime_str(self) -> str:
@@ -94,18 +86,13 @@ def print_help() -> None:
             {
                 "pbs_script_path": "/some/path/somewhere.pbs",
                 "spyral_start_script": "/some/path/somewhere.py",
-                "spyral_workspace_path": "/some/path/somewhere/",
-                "spyral_trace_path": "/some/path/somewhere/",
-                "container_path": "/some/path/somewhere.img",
                 "log_path": "/some/path/somewhere/",
                 "job_name": "spyral_job",
                 "queue": "debug",
                 "nodes": 1,
-                "cpus_per_node": 32,
-                "memory_per_node": 20,
                 "walltime": 60
             }
-            Memory is specified in GBs and Walltime is in minutes.
+            Walltime is in minutes.
             """
         )
     )
@@ -120,7 +107,7 @@ def create_job_script(config: Config):
 
                 #PBS -A {config.job_name}
                 #PBS -q debug
-                #PBS -l select={config.nodes}:system=polaris:ncpus={config.cpus_per_node}:mem={config.memory_per_node}gb
+                #PBS -l select={config.nodes}
                 #PBS -l filesystems=home:eagle
                 #PBS -l place=scatter
                 #PBS -k doe
@@ -128,10 +115,8 @@ def create_job_script(config: Config):
                 #PBS -o {config.log_path}
                 #PBS -l walltime={config.walltime_str()}
 
-                module use /soft/spack/gcc/0.6.1/install/modulefiles/Core
-                module load apptainer
-
-                apptainer -s exec --bind {config.spyral_workspace_path}:/workspace,{config.spyral_trace_path}:/traces,{Path.cwd()}:/app {config.container_path} python /app/{config.spyral_start_script}
+                . activate_spyral_env.sh
+                python {config.spyral_start_script}
                 """
             )
         )
@@ -143,15 +128,10 @@ def load_job_config(config_path: Path) -> Config:
         return Config(
             Path(config_data["pbs_script_path"]),
             Path(config_data["spyral_start_script"]),
-            Path(config_data["spyral_workspace_path"]),
-            Path(config_data["spyral_trace_path"]),
-            Path(config_data["container_path"]),
             Path(config_data["log_path"]),
             config_data["job_name"],
             config_data["queue"],
             config_data["nodes"],
-            config_data["cpus_per_node"],
-            config_data["memory_per_node"],
             config_data["walltime"],
         )
 
@@ -180,18 +160,6 @@ def main(config_path: Path, sub: SubCommand):
         print(f"ERROR - Spyral script {config.spyral_start_script} does not exist.")
         return
 
-    if not (
-        config.spyral_workspace_path.exists() and config.spyral_workspace_path.is_dir()
-    ):
-        print(
-            f"ERROR - Spyral workspace directory {config.spyral_workspace_path} does not exist or is not a directory."
-        )
-        return
-
-    if not config.container_path.exists():
-        print(f"ERROR - Container {config.container_path} does not exist.")
-        return
-
     if config.queue not in VALID_QUEUES:
         print(
             f"ERROR - Queue {config.queue} is not a valid queue. Valid queues are {VALID_QUEUES}"
@@ -202,16 +170,6 @@ def main(config_path: Path, sub: SubCommand):
     if config.nodes < queue_node_limits[0] or config.nodes > queue_node_limits[1]:
         print(
             f"ERROR - Nodes {config.nodes} exceeds node limits {queue_node_limits} (min, max)"
-        )
-        return
-
-    if config.cpus_per_node > CPU_LIMIT:
-        print(f"ERROR - CPUs {config.cpus_per_node} exceeds cpu limit {CPU_LIMIT}")
-        return
-
-    if config.memory_per_node > MEMORY_LIMIT:
-        print(
-            f"ERROR - Memory {config.memory_per_node} exceeds memory limit {MEMORY_LIMIT}"
         )
         return
 
