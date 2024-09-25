@@ -14,6 +14,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install $PYCAPNP_WHEEL
 pip install $DRAGON_WHEEL
+pip install attpc_spyral
 module use $MODULE_DIR
 module load dragon
 
