@@ -17,7 +17,7 @@ This makes it so that you don't really need to know very much about how PBS and 
 module use /soft/modulefiles; module load conda; conda activate base
 ```
 
-This will load up the default Polaris conda environment. `spyral_job.py` only depends on having Python 3.8+, so you can then simply run the script as 
+This will load up the default Polaris conda environment. `spyral_job.py` only depends on having Python 3.8+, so you can then simply run the script as
 
 ```bash
 python spyral_job.py COMMAND CONFIG
@@ -51,7 +51,6 @@ Hopefully this all is clear, but as a simple guide remember that to your code th
 - Trace data -> `/traces`
 - Workspace -> `/workspace`
 - Your codespace -> `/app`
-
 
 ## Job Configuration Parameters
 
