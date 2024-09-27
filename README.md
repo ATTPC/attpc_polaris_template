@@ -72,7 +72,7 @@ Here we'll go over the available configuration parameters for jobs with Spyral
 - `pbs_script_path`: The path to where you want to store the created PBS job script
 - `spyral_start_script`: The script to be run by Spyral. It should exist at the same location as `spyral_job.py`.
 - `log_path`: The location at which you would like PBS logs to be written
-- `job_name`: The name of this job in PBS
+- `project_name`: The name of the project at ALCF that you will be running under
 - `queue`: The queue you would like to submit the job to. See the Polaris [docs](https://docs.alcf.anl.gov/polaris/running-jobs/)
 - `nodes`: The number of vnodes to use. See Polaris [docs](https://docs.alcf.anl.gov/running-jobs/job-and-queue-scheduling/)
 - `walltime`: How long the job is allowed to run in units of minutes. See Polaris [docs](https://docs.alcf.anl.gov/running-jobs/job-and-queue-scheduling/)
