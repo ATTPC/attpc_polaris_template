@@ -82,7 +82,7 @@ Here we'll go over the available configuration parameters for jobs with Spyral
     "pbs_script_path": "/some/path/somewhere.pbs",
     "spyral_start_script": "some_script.py",
     "log_path": "/some/path/somewhere/",
-    "job_name": "spyral_job",
+    "project_name": "attpc",
     "queue": "debug",
     "nodes": 1,
     "walltime": 60

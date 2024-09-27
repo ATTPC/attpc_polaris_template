@@ -2,7 +2,7 @@
     "pbs_script_path": "./pbs/my_script.pbs",
     "spyral_start_script": "example_spyral_script.py",
     "log_path": "/some/path/somewhere/",
-    "job_name": "spyral_job",
+    "project_name": "attpc",
     "queue": "debug",
     "nodes": 1,
     "walltime": 60

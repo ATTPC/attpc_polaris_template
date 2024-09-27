@@ -57,7 +57,7 @@ class Config:
     pbs_script_path: Path
     spyral_start_script: Path
     log_path: Path
-    job_name: str
+    project_name: str
     queue: str
     nodes: int
     walltime: int
@@ -105,7 +105,7 @@ def create_job_script(config: Config):
                 f"""
                 #!/bin/bash -l
 
-                #PBS -A {config.job_name}
+                #PBS -A {config.project_name}
                 #PBS -q debug
                 #PBS -l select={config.nodes}
                 #PBS -l filesystems=home:eagle
@@ -131,7 +131,7 @@ def load_job_config(config_path: Path) -> Config:
             Path(config_data["pbs_script_path"]),
             Path(config_data["spyral_start_script"]),
             Path(config_data["log_path"]),
-            config_data["job_name"],
+            config_data["project_name"],
             config_data["queue"],
             config_data["nodes"],
             config_data["walltime"],
@@ -151,7 +151,7 @@ def main(config_path: Path, sub: SubCommand):
     config = load_job_config(config_path)
 
     # Do some sanitization
-    if config.pbs_script_path.exists():
+    if config.pbs_script_path.exists() and sub == SubCommand.CREATE:
         print(
             f"WARNING - PBS script {config.pbs_script_path} already exists and has been overwritten"
         )
