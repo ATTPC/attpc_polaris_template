@@ -31,9 +31,11 @@ then
     return
 fi
 echo "Creating a new virtual environment..."
-python -m venv .venv
+python -m venv .venv --system-site-packages
 source .venv/bin/activate
 echo "Installing Dragon specific wheels..."
+# Hack the Jinja version. The one installed by default is old
+pip install --ignore-installed Jinja2
 pip install $PYCAPNP_WHEEL
 pip install $DRAGON_WHEEL
 echo "Installing Spyral and dependencies..."
