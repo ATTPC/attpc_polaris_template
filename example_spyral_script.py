@@ -3,13 +3,15 @@ import dotenv
 
 dotenv.load_dotenv()
 
+from spyral.core.dragon_start import start_pipeline_dragon
+
 from spyral import (
+    OverlapJoinParameters,
     Pipeline,
-    start_pipeline,
     PointcloudPhase,
     ClusterPhase,
     EstimationPhase,
-    InterpLeastSqSolverPhase,
+    InterpSolverPhase,
 )
 from spyral import (
     PadParameters,
@@ -75,8 +77,11 @@ cluster_params = ClusterParameters(
     min_size_scale_factor=0.05,
     min_size_lower_cutoff=10,
     cluster_selection_epsilon=10.0,
-    min_cluster_size_join=15,
-    circle_overlap_ratio=0.25,
+    overlap_join=OverlapJoinParameters(
+        min_cluster_size_join=15,
+        circle_overlap_ratio=0.25,
+    ),
+    continuity_join=None,
     outlier_scale_factor=0.05,
 )
 
@@ -99,6 +104,7 @@ solver_params = SolverParameters(
     fit_vertex_rho=True,
     fit_vertex_phi=True,
     fit_azimuthal=True,
+    fit_method="lbfgsb",
 )
 
 pipe = Pipeline(
@@ -111,7 +117,7 @@ pipe = Pipeline(
         ),
         ClusterPhase(cluster_params, det_params),
         EstimationPhase(estimate_params, det_params),
-        InterpLeastSqSolverPhase(solver_params, det_params),
+        InterpSolverPhase(solver_params, det_params),
     ],
     [True, True, True, True],
     workspace_path,
@@ -120,7 +126,7 @@ pipe = Pipeline(
 
 
 def main():
-    start_pipeline(pipe, run_min, run_max, n_processes, disable_display=True)
+    start_pipeline_dragon(pipe, run_min, run_max)
 
 
 if __name__ == "__main__":
