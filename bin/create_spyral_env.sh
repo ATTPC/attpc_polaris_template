@@ -20,11 +20,10 @@ then
     return
 fi
 echo "Creating a new virtual environment..."
-python -m venv .venv --system-site-packages
+# For now create clean env, too many conflicts
+python -m venv .venv 
 source .venv/bin/activate
-echo "Installing Dragon specific wheels..."
-# Hack the Jinja version. The one installed by default is old
-pip install --ignore-installed Jinja2
+echo "Installing Dragon..."
 pip install dragonhpc 
 echo "Installing Spyral and dependencies..."
 pip install attpc_spyral
